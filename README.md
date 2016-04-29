@@ -1,5 +1,9 @@
 # leila
-This crap has no quality, good practices or maturity. But its useful.
+Come on, you gotta have nokogiri and httparty installed.
+
+open-uri sucks. Here is why: http://sakurity.com/blog/2015/02/28/openuri.html
+
+This code has no quality, good practices or maturity. This is the essence of utility.
 
 
 I hate Ligamagic interface, so I scripted a scraper for checking MTG card auctions to see them on terminal.

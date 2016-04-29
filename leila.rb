@@ -19,7 +19,11 @@ class Offer
 
   def print_offer
     puts "\n"
-    separator = "Referências ~> #{@references}".gsub(/./, "-") << "|"
+      if @name.length > @references.length
+        separator = "Nome ~> #{@name}".gsub(/./, "-") << "--|" 
+      else
+        separator = "Referências ~> #{@references}".gsub(/./, "-") << "|"
+      end
     puts separator
     puts "Oferta ~> #{@name}"
     puts separator
@@ -88,10 +92,10 @@ end
 def main
   welcome
   @cards.each do |card|
-    puts "Checking for a #{card} auction...\n"
+    puts "Checking for a #{card} auction..."
+    puts "\n"
     request = do_request(get_url(parameterize_card(card)))
       if has_auction? request
-        puts "HIT!"
         offers = get_offers request
         offers.each do |offer|
           leilao = Offer.new(offer)
