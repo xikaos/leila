@@ -1,7 +1,6 @@
 require 'httparty'
 require 'nokogiri'
 
-
 BASE_URL="http://www.ligamagic.com.br/?view=cards%2Fsearch&card=current_card"
 @current_card = nil
 
@@ -52,7 +51,8 @@ def get_url cardname
 end
 
 def do_request url
-  doc = Nokogiri::HTML(HTTParty.get(url))
+  response = HTTParty.get(url)
+  Nokogiri::HTML(response.body) unless response.body.nil?
 end
 
 def get_cards file
