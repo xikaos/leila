@@ -1,5 +1,6 @@
 require 'httparty'
 require 'nokogiri'
+require 'pry'
 
 BASE_URL="http://www.ligamagic.com.br/?view=cards%2Fsearch&card=current_card"
 @current_card = nil
@@ -51,7 +52,8 @@ def get_url cardname
 end
 
 def do_request url
-  response = HTTParty.get(url)
+  user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36'
+  response = HTTParty.get(url, headers: { 'user-agent': user_agent })
   Nokogiri::HTML(response.body) unless response.body.nil?
 end
 
