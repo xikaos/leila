@@ -2,49 +2,62 @@ require 'httparty'
 require 'nokogiri'
 require 'pry'
 
+require_relative 'parser'
+include Parser
+
 BASE_URL="http://www.ligamagic.com.br/?view=cards%2Fsearch&card=current_card"
 @current_card = nil
 
-class Offer
-  attr_accessor :name, :price, :bids, :owner, :references, :time
+class Auction
+  attr_accessor :name, :initial_price, :bids, :buyout_price, :seller, :reference_count, :positive_references, :expires_in
 
-  def initialize offer
-    @name = offer[0]
-    @price = offer[1]
-    @bids = offer[2]
-    @owner = offer[3]
-    @references = offer[4]
-    @time = offer[5]
+  def initialize auction_data
+    if auction_data.empty?
+      binding.pry
+    end
+
+    @name = auction_data[0]
+    @initial_price = auction_data[1]
+    @bids = auction_data[2]
+    @buyout_price = auction_data[3]
+    @seller = auction_data[4]
+    @reference_count = auction_data[5]
+    @positive_references = auction_data[6]
+    @expires_in = auction_data[7]
   end
 
   def print_offer
-    puts "\n"
-      if @name.length > @references.length
-        separator = "Nome ~> #{@name}".gsub(/./, "-") << "--|" 
-      else
-        separator = "Referências ~> #{@references}".gsub(/./, "-") << "|"
-      end
+    separator = '------------------------------'
+
     puts separator
-    puts "Oferta ~> #{@name}"
+    puts "Initial Price ~> #{@initial_price}"
+
     puts separator
-    puts "Preço ~> #{@price}"
+    puts "Buyout Price ~> #{@buyout_price}"
+
     puts separator
-    puts "Lances ~> #{@bids}"
+    puts "Bids ~> #{@bids}"
+
     puts separator
-    puts "Vendedor ~> #{@owner}"
+    puts "Seller ~> #{@seller}"
+
     puts separator
-    puts "Referências ~> #{@references}"
+    puts "References ~> #{@reference_count}"
+
     puts separator
-    puts "Expira em ~> #{@time}"
+    puts "Positive References ~> #{@positive_references}"
+
     puts separator
-    puts "\n"  
+    puts "Expires In ~> #{@expires_in}"
+
+    puts separator + "\n\n"
   end
 
 end
 
 
 def parameterize_card cardname
-  @current_card = cardname.gsub(' ', '+')
+  cardname.gsub(' ', '+')
 end
 
 def get_url cardname
@@ -75,37 +88,25 @@ def welcome
   puts '----------------------------------------------------'
 end
 
-def has_auction? doc
-  doc.css('#cotacao-leiloes > tbody').empty? ? false : true
-end
-
-def get_offers node
-  offers = node.css('#cotacao-leiloes > tbody').css('tr').map do |n|
-     n.text.split("\r\n").reject {|z| z.strip == "" } 
-  end
-
-  offers.map do |offer|
-    offer.map {|item| item.strip}
-  end
-
-end
-
 
 def main
   welcome
-  @cards.each do |card|
-    puts "Checking for a #{card} auction..."
+  @cards.each do |card_name|
+    puts "Checking for a #{card_name} auction..."
     puts "\n"
-    request = do_request(get_url(parameterize_card(card)))
-      if has_auction? request
-        offers = get_offers request
-        offers.each do |offer|
-          leilao = Offer.new(offer)
-          leilao.print_offer
-        end
-      else
-        puts "NOPS!"
-      end
+
+    response = do_request(get_url(parameterize_card(card_name)))
+    auctions = Parser.get_offers response
+
+    if auctions.empty?
+      puts "No auction for #{card_name} :("
+      next
+    end
+
+    auctions.each do |auction_data|
+      leilao = Auction.new([card_name] + auction_data)
+      leilao.print_offer
+    end
   end
 end
 
