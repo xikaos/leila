@@ -12,6 +12,19 @@ class Auction
     @expires_in = auction_data[:expires_in]
   end
 
+  def to_h
+    {
+      name: @name,
+      initial_price: @initial_price,
+      bids: @bids,
+      buyout_price: @buyout_price,
+      seller: @seller,
+      reference_count: @reference_count,
+      positive_references: @positive_references,
+      expires_in: @expires_in,
+    }
+  end
+
   def print_offer
     separator = '------------------------------'
 
