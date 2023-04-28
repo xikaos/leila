@@ -21,18 +21,18 @@ module Parser
   private
 
   def extract_auction_attributes auction
-      selectors = {
-        name: NAME_SELECTOR,
-        initial_price: INITIAL_PRICE_SELECTOR,
-        bids: BIDS_SELECTOR,
-        buyout_price: BUYOUT_PRICE_SELECTOR,
-        seller: SELLER_SELECTOR,
-        reference_count: REFERENCE_COUNT_SELECTOR,
-        positive_references: POSITIVE_REFERENCES_SELECTOR,
-        expires_in: EXPIRES_IN_SELECTOR
-      }
+    selectors = {
+      name: NAME_SELECTOR,
+      initial_price: INITIAL_PRICE_SELECTOR,
+      bids: BIDS_SELECTOR,
+      buyout_price: BUYOUT_PRICE_SELECTOR,
+      seller: SELLER_SELECTOR,
+      reference_count: REFERENCE_COUNT_SELECTOR,
+      positive_references: POSITIVE_REFERENCES_SELECTOR,
+      expires_in: EXPIRES_IN_SELECTOR
+    }
 
-      get_text = -> selector { auction.css(selector).text }
-      selectors.transform_values(&get_text)
+    get_text = -> selector { auction.css(selector).text }
+    selectors.transform_values(&get_text)
   end
 end
