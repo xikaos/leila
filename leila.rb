@@ -29,7 +29,7 @@ def get_cards file
 end
 
 def get_requests
-@requests = get_cards('cards.txt').map do |card|
+  @requests = get_cards('cards.txt').map do |card|
   do_request(get_url(parameterize_card(card)))
 end
 end
