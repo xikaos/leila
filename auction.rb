@@ -2,18 +2,21 @@ class Auction
     attr_accessor :name, :initial_price, :bids, :buyout_price, :seller, :reference_count, :positive_references, :expires_in
 
     def initialize auction_data
-      @name = auction_data[0]
-      @initial_price = auction_data[1]
-      @bids = auction_data[2]
-      @buyout_price = auction_data[3]
-      @seller = auction_data[4]
-      @reference_count = auction_data[5]
-      @positive_references = auction_data[6]
-      @expires_in = auction_data[7]
+      @name = auction_data[:name]
+      @initial_price = auction_data[:initial_price]
+      @bids = auction_data[:bids]
+      @buyout_price = auction_data[:buyout_price]
+      @seller = auction_data[:seller]
+      @reference_count = auction_data[:reference_count]
+      @positive_references = auction_data[:positive_references]
+      @expires_in = auction_data[:expires_in]
     end
 
     def print_offer
       separator = '------------------------------'
+
+      puts separator
+      puts "Name ~> #{@name}"
 
       puts separator
       puts "Initial Price ~> #{@initial_price}"

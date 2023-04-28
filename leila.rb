@@ -50,7 +50,7 @@ def main
     puts "\n"
 
     response = do_request(get_url(parameterize_card(card_name)))
-    auctions = Parser.get_offers response
+    auctions = Parser.get_auctions response
 
     if auctions.empty?
       puts "No auction for #{card_name} :("
@@ -58,8 +58,8 @@ def main
     end
 
     auctions.each do |auction_data|
-      leilao = Auction.new([card_name] + auction_data)
-      leilao.print_offer
+      auction = Auction.new(auction_data)
+      auction.print_offer
     end
   end
 end
