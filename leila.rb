@@ -1,6 +1,5 @@
 require 'httparty'
 require 'nokogiri'
-require 'pry'
 
 require_relative 'auction'
 require_relative 'parser'
