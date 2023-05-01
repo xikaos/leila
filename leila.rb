@@ -21,7 +21,6 @@ end
 def do_request url
   user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36'
   response = HTTParty.get(url, headers: { 'user-agent': user_agent })
-  Nokogiri::HTML(response.body) unless response.body.nil?
 end
 
 def get_cards file
@@ -50,7 +49,7 @@ def main
     puts "\n"
 
     response = do_request(get_url(parameterize_card(card_name)))
-    auctions = Parser.get_auctions response
+    auctions = Parser.get_auctions response.body
 
     if auctions.empty?
       puts "No auction for #{card_name} :("
