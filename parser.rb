@@ -1,5 +1,3 @@
-require 'pry'
-
 module Parser
   AUCTIONS_SELECTOR = 'div[mp="3"]'
 

@@ -1,8 +1,6 @@
 require 'spec_helper'
 require_relative '../auction'
 
-require 'pry';
-
 describe Auction do
     describe '#new' do
         it "Its created with the values I expect" do
