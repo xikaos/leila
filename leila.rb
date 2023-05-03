@@ -63,5 +63,3 @@ def main
 end
 
 main
-
-#@requests.last
