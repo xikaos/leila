@@ -1,3 +1,5 @@
+require 'nokogiri'
+
 module Parser
   AUCTIONS_SELECTOR = 'div[mp="3"]'
 
