@@ -1,8 +1,6 @@
 # leila
 
-See Ligamagic auction data for the cards you want to buy directly in your terminal!
-
-* insert GIF here *
+![leila-running](https://user-images.githubusercontent.com/3723250/236971888-c2897af5-634d-429c-8e32-3509cb6662d4.gif)
 
 ## Context
 Back in the day, I used to buy MTG physical cards. One of the best places to buy Magic cards in Brazil is the [Ligamagic](https://www.ligamagic.com.br/) marketplace. They allow stores to sell cards to customers and also allow players to sell cards through auctions.
