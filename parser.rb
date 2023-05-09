@@ -12,16 +12,16 @@ module Parser
   POSITIVE_REFERENCES_SELECTOR = 'div.l-col4 > p[4]'
   EXPIRES_IN_SELECTOR = 'div.l-clock-tempo'
 
-  def get_auctions response_body
+  def self.get_auctions response_body
     parsed_response = Nokogiri::HTML(response_body)
     parsed_response.css(AUCTIONS_SELECTOR).map do |auction|
-        extract_auction_attributes auction
+      extract_auction_attributes auction
     end
   end
 
   private
 
-  def extract_auction_attributes auction
+  def self.extract_auction_attributes auction
     selectors = {
       name: NAME_SELECTOR,
       initial_price: INITIAL_PRICE_SELECTOR,

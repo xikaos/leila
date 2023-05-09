@@ -2,9 +2,6 @@ require_relative 'auction'
 require_relative 'parser'
 require_relative 'http'
 
-include Parser
-include Http
-
 def get_cards file
   @cards = File.open(file).map {|card| card.chomp }
 end
