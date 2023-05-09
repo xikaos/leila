@@ -34,8 +34,10 @@ class Auction
     puts separator
     puts "Initial Price ~> #{@initial_price}"
 
-    puts separator
-    puts "Buyout Price ~> #{@buyout_price}"
+    if !@buyout_price.empty?
+      puts separator
+      puts "Buyout Price ~> #{@buyout_price}"
+    end
 
     puts separator
     puts "Bids ~> #{@bids}"
